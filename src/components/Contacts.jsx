@@ -5,21 +5,6 @@ import('./Contacts.scss');
 export default function Contacts({ users, onClick }) {
 
 
-    /*
-
-        const [data, setData] = useState([])
-    
-        useEffect(() => {
-           
-            if (localStorage.getItem('data')) {
-                setData(JSON.parse(localStorage.getItem('data')))
-            } else {  
-            fetch(' https://jsonplaceholder.typicode.com/users')
-                .then(response => response.json())
-                .then(data => setData(data))
-        }, [])
-    */
-
     const deleteUser = (e) => {
         let currentId = parseInt(e.target.id);
         onClick(currentId);
