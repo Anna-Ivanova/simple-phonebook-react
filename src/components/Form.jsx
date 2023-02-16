@@ -30,18 +30,7 @@ export default function Form({ onClick, onNavigate }) {
         }
     }
     const saveForm = () => {
-        /*
-        const regName = /^[A-Z][a-z]{3,}$/;
-        const regPhone = /^[\d\][\d\(\)\-]{9,10}\d$/;
-        if (!regName.test(inputName.current.value)) {
-            setError('Pls input correct name')
-        }
-        else if (!regName.test(inputSurname.current.value)) {
-            setError('Pls input correct surname')
-        }
-        else if (!regPhone.test(inputPhone.current.value)) {
-            setError('Phone number format 0505555555')
-        }*/
+
         let name = inputName.current.value;
         let surname = inputSurname.current.value;
         let phone = inputPhone.current.value;
@@ -55,9 +44,9 @@ export default function Form({ onClick, onNavigate }) {
             onNavigate('Contacts')
         }
     }
+
     const cancelForm = () => {
         onNavigate('Contacts')
-
     }
 
     return (

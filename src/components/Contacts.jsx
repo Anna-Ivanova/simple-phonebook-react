@@ -1,4 +1,3 @@
-
 import('./Contacts.scss');
 
 
@@ -8,8 +7,6 @@ export default function Contacts({ users, handleDeleteUser }) {
     const deleteUser = (e) => {
         let currentId = parseInt(e.target.id);
         handleDeleteUser(currentId);
-
-
     }
 
     return (
