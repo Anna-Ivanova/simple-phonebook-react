@@ -2,12 +2,12 @@
 import('./Contacts.scss');
 
 
-export default function Contacts({ users, onClick }) {
+export default function Contacts({ users, handleDeleteUser }) {
 
 
     const deleteUser = (e) => {
         let currentId = parseInt(e.target.id);
-        onClick(currentId);
+        handleDeleteUser(currentId);
 
 
     }

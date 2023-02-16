@@ -19,31 +19,35 @@ function App() {
     }
   }, [])
 
-
+  const handleButtonClick = (e) => {
+    handleSwitch(e.target.value);
+  }
   const handleSwitch = (page) => {
     setCurrentPage(page);
   }
   const handleNewUser = (user) => {
     let updatedData = [...data, user];
     setData(updatedData);
-    localStorage.setItem('users', JSON.stringify(updatedData))
+    saveDataToLocalStorage(updatedData);
   }
   const handlerDelete = (id) => {
     let filterData = data.filter(user => user.id !== id)
     setData(filterData);
-    localStorage.setItem('users', JSON.stringify(filterData));
+    saveDataToLocalStorage(filterData);
   }
-
+  const saveDataToLocalStorage = (dataUsers) => {
+    localStorage.setItem('users', JSON.stringify(dataUsers));
+  }
   return (
     <div className="App">
       <div className='container'>
         <header className='header'>
-          <input type='button' value='Contacts' onClick={(e) => handleSwitch(e.target.value)} />
-          <input type='button' value='Form' onClick={(e) => handleSwitch(e.target.value)} />
+          <input type='button' value='Contacts' onClick={handleButtonClick} />
+          <input type='button' value='Form' onClick={handleButtonClick} />
         </header>
 
         {currentPage === 'Contacts' ?
-          <Contacts users={data} onClick={handlerDelete} /> :
+          <Contacts users={data} handleDeleteUser={handlerDelete} /> :
           <Form onClick={handleNewUser} onNavigate={handleSwitch} />}
 
       </div>
