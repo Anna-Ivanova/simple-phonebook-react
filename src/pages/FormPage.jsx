@@ -1,10 +1,10 @@
 import React from "react";
 import { useRef, useState } from "react";
-import './Form.scss'
+import { useNavigate } from "react-router-dom";
+import('../components/Form.scss');
 
-
-export default function Form({ onClick, onNavigate }) {
-
+export default function Form({ addNewUser, onNavigate }) {
+    const navigate = useNavigate();
     const inputName = useRef('');
     const inputSurname = useRef('');
     const inputPhone = useRef('');
@@ -40,13 +40,13 @@ export default function Form({ onClick, onNavigate }) {
                 name: `${name} ${surname}`,
                 phone: phone
             }
-            onClick(dataUser);
-            onNavigate('Contacts')
+            addNewUser(dataUser);
+            navigate("/")
         }
     }
 
     const cancelForm = () => {
-        onNavigate('Contacts')
+        navigate("/")
     }
 
     return (

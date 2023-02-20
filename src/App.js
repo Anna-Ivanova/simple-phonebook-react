@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Form from './components/Form';
-import Contacts from './components/Contacts';
+import FormPage from './pages/FormPage';
+import ContactsPage from './pages/ContactsPage';
+import Menu from './components/Menu';
+import UserPage from './pages/UserPage';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
 
-  const [currentPage, setCurrentPage] = useState('Contacts');
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -19,16 +22,26 @@ function App() {
     }
   }, [])
 
-  const handleButtonClick = (e) => {
-    handleSwitch(e.target.value);
-  }
-  const handleSwitch = (page) => {
-    setCurrentPage(page);
-  }
   const handleNewUser = (user) => {
     let updatedData = [...data, user];
     setData(updatedData);
     saveDataToLocalStorage(updatedData);
+  }
+  const handleEditUser = (editUser) => {
+    const { id, name, phone } = editUser;
+
+    const updatedContacts = data.map(user => {
+      if (user.id === parseInt(id)) {
+        return { ...user, name: name, phone: phone }
+      }
+      else {
+        return user
+      }
+    })
+    console.log(updatedContacts);
+    setData(updatedContacts);
+    saveDataToLocalStorage(updatedContacts);
+
   }
   const handlerDelete = (id) => {
     let filterData = data.filter(user => user.id !== id)
@@ -40,17 +53,17 @@ function App() {
   }
   return (
     <div className="App">
-      <div className='container'>
-        <header className='header'>
-          <input type='button' value='Contacts' onClick={handleButtonClick} />
-          <input type='button' value='Form' onClick={handleButtonClick} />
-        </header>
+      <BrowserRouter>
+        <Menu />
+        <Routes>
+          <Route path="/" element={<ContactsPage users={data} handleDeleteUser={handlerDelete} />} />
+          <Route path="/form" element={<FormPage addNewUser={handleNewUser} />} />
+          <Route path="/:idcontact" element={<UserPage editUser={handleEditUser} />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
 
-        {currentPage === 'Contacts' ?
-          <Contacts users={data} handleDeleteUser={handlerDelete} /> :
-          <Form onClick={handleNewUser} onNavigate={handleSwitch} />}
 
-      </div>
     </div>
   );
 }
