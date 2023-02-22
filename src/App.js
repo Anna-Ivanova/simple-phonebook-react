@@ -58,7 +58,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ContactsPage users={data} handleDeleteUser={handlerDelete} />} />
           <Route path="/form" element={<FormPage addNewUser={handleNewUser} />} />
-          <Route path="/:idcontact" element={<UserPage editUser={handleEditUser} />} />
+          <Route path="/:idcontact" element={<UserPage saveEditUser={handleEditUser} />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
